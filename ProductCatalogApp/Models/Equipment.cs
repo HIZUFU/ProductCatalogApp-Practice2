@@ -12,6 +12,6 @@
 
         public int ProductionSiteId { get; set; }
 
-        public ProductionSite ProductionSite { get; set; } = null!;
+        public ProductionSite? ProductionSite { get; set; }
     }
 }
