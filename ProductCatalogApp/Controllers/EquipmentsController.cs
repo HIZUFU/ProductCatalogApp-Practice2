@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogApp.Data;
 using ProductCatalogApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 public class EquipmentsController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -53,6 +55,7 @@ public class EquipmentsController : Controller
     }
 
     // GET: Equipments/Create
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create()
     {
         await LoadProductionSitesAsync();
@@ -63,6 +66,7 @@ public class EquipmentsController : Controller
     // POST: Equipments/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(
         [Bind("Id,Name,Model,InventoryNumber,ProductionSiteId")]
         Equipment equipment)
@@ -81,6 +85,7 @@ public class EquipmentsController : Controller
     }
 
     // GET: Equipments/Edit/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -103,6 +108,7 @@ public class EquipmentsController : Controller
     // POST: Equipments/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(
         int? id,
         [Bind("Id,Name,Model,InventoryNumber,ProductionSiteId")]
@@ -139,6 +145,7 @@ public class EquipmentsController : Controller
     }
 
     // GET: Equipments/Delete/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -161,6 +168,7 @@ public class EquipmentsController : Controller
     // POST: Equipments/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var equipment = await _context.EquipmentItems.FindAsync(id);

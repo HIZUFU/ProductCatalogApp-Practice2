@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogApp.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using ProductCatalogApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +23,20 @@ builder.Services
         options.SlidingExpiration = true;
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<
+    IPasswordHasher<AppUser>,
+    PasswordHasher<AppUser>>();
 
 var app = builder.Build();
 

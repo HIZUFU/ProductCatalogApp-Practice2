@@ -6,9 +6,17 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create"
+               class="btn btn-primary">
+                Добавить оборудование
+            </a>
+        </p>
+    }
+
 <form asp-action="Index" method="get" class="mb-3">
     <label for="productionSiteId">Производственная площадка:</label>
 
@@ -67,11 +75,34 @@
                 @Html.DisplayFor(model => item.ProductionSite)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit"
+                   asp-route-id="@item.Id">
+                    Редактировать
+                </a>
+
+                <span> | </span>
+            }
+
+            <td>
+                <a asp-action="Details"
+                   asp-route-id="@item.Id">
+                    Подробнее
+                </a>    
+            </td>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <span> | </span>
+
+                <a asp-action="Delete"
+                   asp-route-id="@item.Id">
+                    Удалить
+                </a>
+            }
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
