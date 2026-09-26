@@ -41,10 +41,12 @@
             </td>
             @if (User.IsInRole("Admin"))
             {
-                <a asp-action="Edit"
-                   asp-route-id="@item.Id">
-                    Редактировать
-                </a>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id">
+                        Редактировать
+                    </a>
+                </td>
 
                 <span> | </span>
             }
@@ -58,11 +60,12 @@
             @if (User.IsInRole("Admin"))
             {
                 <span> | </span>
-
-                <a asp-action="Delete"
-                   asp-route-id="@item.Id">
-                    Удалить
-                </a>
+                <td>
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id">
+                        Удалить
+                    </a>
+                </td>
             }
         </tr>
 }

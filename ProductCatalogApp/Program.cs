@@ -60,4 +60,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+await DbInitializer.InitializeAsync(app.Services);
 app.Run();
